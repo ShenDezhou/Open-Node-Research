@@ -58,24 +58,24 @@ const { Vec3 } = require("vec3");
 
 // BEGIN FUNCTION
 function onConnectionFailed(e) {
-    console.log(e);
+    console.log(e.message);
     bot = null;
     res.status(400).json({ error: e });
 }
 
 function onDisconnect(message) {
+    console.log(message);
     if (bot.viewer) {
         bot.viewer.close();
     }
     bot.end();
-    console.log(message);
     bot = null;
 }
 // END
 
 // BEGIN FUNCTION
 function otherError(err) {
-    console.log("Uncaught Error");
+    console.log("Uncaught Error" + err.message);
     bot.emit("error", handleError(err));
     bot.waitForTicks(bot.waitTicks).then(() => {
         if (!response_sent) {
@@ -135,7 +135,6 @@ function teleportBot() {
     });
 
     if (blocks) {
-        // console.log(blocks.length);
         const randomIndex = Math.floor(Math.random() * blocks.length);
         const block = blocks[randomIndex];
         bot.chat(`/tp @s ${block.x} ${block.y} ${block.z}`);
