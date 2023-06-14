@@ -185,7 +185,7 @@ function returnItems(mcData) {
     bot.chat("/gamerule doTileDrops true");
 }
 
-function handleError(err) {
+function handleError(err, programs="", code="") {
     let stack = err.stack;
     if (!stack) {
         return err;
@@ -419,7 +419,7 @@ app.post("/step", async (req, res) => {
     const r = await evaluateCode(code, programs);
     process.off("uncaughtException", otherError);
     if (r !== "success") {
-        bot.emit("error", handleError(r));
+        bot.emit("error", handleError(r, programs, code));
     }
     await returnItems(mcData);
     // wait for last message
