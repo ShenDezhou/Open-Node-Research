@@ -56,6 +56,10 @@ const {
 const { Vec3 } = require("vec3");
 // END
 
+// BEGIN VIEWER
+const mineflayerViewer=require('prismarine-viewer').mineflayer
+// END
+
 // BEGIN FUNCTION
 function onConnectionFailed(e) {
     console.log(e.message);
@@ -361,6 +365,12 @@ app.post("/start", (req, res) => {
         initCounter(bot);
         bot.chat("/gamerule keepInventory true");
         bot.chat("/gamerule doDaylightCycle false");
+
+        // Viewer Server started
+        mineflayerViewer(bot, {
+            port: 1024,
+            firstPerson: true 
+        })
     });
 
 });
