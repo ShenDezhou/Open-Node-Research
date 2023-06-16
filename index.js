@@ -369,7 +369,7 @@ app.post("/start", (req, res) => {
         // Viewer Server started
         mineflayerViewer(bot, {
             port: 1024,
-            firstPerson: true 
+            firstPerson: false 
         })
     });
 
